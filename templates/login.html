@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="card auth-box">
+    <h2>Login</h2>
+    <form method="post" action="{% url 'login' %}">
+        {% csrf_token %}
+        <label for="username">Username</label>
+        <input id="username" name="username" type="text" required>
+
+        <label for="password">Password</label>
+        <input id="password" name="password" type="password" required>
+
+        <label for="role">Role</label>
+        <select id="role" name="role" required>
+            <option value="student">Student</option>
+            <option value="admin">Admin</option>
+            <option value="placement_officer">Placement Officer</option>
+            <option value="employer">Employer</option>
+        </select>
+
+        <button type="submit">Login</button>
+    </form>
+</section>
+{% endblock %}
+

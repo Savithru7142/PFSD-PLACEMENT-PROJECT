@@ -1,0 +1,58 @@
+{% extends "student_base.html" %}
+
+{% block student_content %}
+<div class="container-fluid">
+    <div class="row mb-4">
+        <div class="col-12">
+            <h3>My Profile</h3>
+        </div>
+    </div>
+
+    <div class="card shadow-sm border-0">
+        <div class="card-body p-4">
+            <div class="row align-items-center mb-4">
+                <div class="col-auto">
+                    <div class="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center" style="width: 80px; height: 80px; font-size: 2rem;">
+                        {{ user.username|first|upper }}
+                    </div>
+                </div>
+                <div class="col">
+                    <h4 class="mb-1">{{ user.get_full_name|default:user.username }}</h4>
+                    <p class="text-muted mb-0">{{ user.profile.get_role_display }}</p>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6 mb-4">
+                    <h5 class="border-bottom pb-2 mb-3"><i class="fas fa-info-circle me-2"></i>Personal Details</h5>
+                    <div class="mb-3">
+                        <label class="text-muted small d-block">Username</label>
+                        <span class="fw-bold">{{ user.username }}</span>
+                    </div>
+                    <div class="mb-3">
+                        <label class="text-muted small d-block">Email Address</label>
+                        <span class="fw-bold">{{ user.email }}</span>
+                    </div>
+                </div>
+
+                <div class="col-md-6 mb-4">
+                    <h5 class="border-bottom pb-2 mb-3"><i class="fas fa-graduation-cap me-2"></i>Academic Details</h5>
+                    <div class="mb-3">
+                        <label class="text-muted small d-block">Department</label>
+                        <span class="fw-bold">{{ user.student_profile.department|default:"Not set" }}</span>
+                    </div>
+                    <div class="mb-3">
+                        <label class="text-muted small d-block">Phone Number</label>
+                        <span class="fw-bold">{{ user.student_profile.phone|default:"Not set" }}</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-4">
+                <button class="btn btn-primary px-4">Edit Profile</button>
+                <button class="btn btn-outline-secondary px-4 ms-2">Change Password</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

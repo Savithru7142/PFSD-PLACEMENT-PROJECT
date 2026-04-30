@@ -1,0 +1,130 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<section class="home-layout">
+  {% if user.is_authenticated %}
+    <div class="auth-panel">
+      <div class="card auth-box">
+        <h2>Welcome, {{ user.get_full_name|default:user.username }}</h2>
+        <p>You are logged in as <strong>{{ role_display }}</strong>.</p>
+        <a class="primary-link" href="{% url 'role-dashboard' %}">Go to Dashboard</a>
+      </div>
+    </div>
+    <div id="carouselExampleIndicators" class="carousel slide home-carousel" data-bs-ride="carousel">
+      <div class="carousel-indicators">
+        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+      </div>
+      <div class="carousel-inner">
+        <div class="carousel-item active">
+          <img src="{% static 'images/place.jpg' %}" class="d-block w-100" alt="Slide 1" style="height: 75vh; object-fit: cover;">
+        </div>
+        <div class="carousel-item">
+          <img src="{% static 'images/place 2.webp' %}" class="d-block w-100" alt="Slide 2" style="height: 75vh; object-fit: cover;">
+        </div>
+        <div class="carousel-item">
+          <img src="{% static 'images/place3.jpg' %}" class="d-block w-100" alt="Slide 3" style="height: 75vh; object-fit: cover;">
+        </div>
+      </div>
+      <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+      </button>
+    </div>
+  {% else %}
+    {% if auth_tab == "login" or auth_tab == "signup" %}
+      <div class="auth-panel">
+      {% if auth_tab == "login" %}
+        <section class="card auth-box">
+          <h2>Login</h2>
+          <form method="post" action="{% url 'login' %}">
+            {% csrf_token %}
+            <label for="login_username">Username</label>
+            <input id="login_username" name="username" type="text" required>
+
+            <label for="login_password">Password</label>
+            <input id="login_password" name="password" type="password" required>
+
+            <label for="login_role">Role</label>
+            <select id="login_role" name="role" required>
+              <option value="student">Student</option>
+              <option value="admin">Admin</option>
+              <option value="placement_officer">Placement Officer</option>
+              <option value="employer">Employer</option>
+            </select>
+
+            <button type="submit">Login</button>
+          </form>
+        </section>
+      {% endif %}
+
+      {% if auth_tab == "signup" %}
+        <section class="card auth-box">
+          <h2>Signup</h2>
+          <form method="post" action="{% url 'signup' %}">
+            {% csrf_token %}
+            <label for="signup_full_name">Full Name</label>
+            <input id="signup_full_name" name="full_name" type="text" required>
+
+            <label for="signup_username">Username</label>
+            <input id="signup_username" name="username" type="text" required>
+
+            <label for="signup_email">Email</label>
+            <input id="signup_email" name="email" type="email" required>
+
+            <label for="signup_password">Password</label>
+            <input id="signup_password" name="password" type="password" required>
+
+            <label for="signup_role">Role</label>
+            <select id="signup_role" name="role" required>
+              <option value="student">Student</option>
+              <option value="admin">Admin</option>
+              <option value="placement_officer">Placement Officer</option>
+              <option value="employer">Employer</option>
+            </select>
+
+            <button type="submit">Create Account</button>
+          </form>
+        </section>
+      {% endif %}
+      </div>
+    {% else %}
+      <div id="carouselExampleIndicators" class="carousel slide home-carousel" data-bs-ride="carousel">
+        <div class="carousel-indicators">
+          <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+          <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+          <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+        </div>
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <img src="{% static 'images/place.jpg' %}" class="d-block w-100" alt="Slide 1" style="height: 75vh; object-fit: cover;">
+          </div>
+          <div class="carousel-item">
+            <img src="{% static 'images/place 2.webp' %}" class="d-block w-100" alt="Slide 2" style="height: 75vh; object-fit: cover;">
+          </div>
+          <div class="carousel-item">
+            <img src="{% static 'images/place3.jpg' %}" class="d-block w-100" alt="Slide 3" style="height: 75vh; object-fit: cover;">
+          </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
+      </div>
+    {% endif %}
+  {% endif %}
+</section>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+{% endblock %}
+

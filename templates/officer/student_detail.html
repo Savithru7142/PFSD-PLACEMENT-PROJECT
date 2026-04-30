@@ -1,0 +1,69 @@
+{% extends "officer_base.html" %}
+
+{% block officer_content %}
+<div class="container-fluid">
+    <div class="row mb-4">
+        <div class="col-12 d-flex justify-content-between align-items-center">
+            <h3>Student Details</h3>
+            <a href="{% url 'officer_students' %}" class="btn btn-secondary">Back to List</a>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-body">
+            <div class="row mb-4">
+                <div class="col-md-2 text-center">
+                    <i class="fas fa-user-circle fa-5x text-muted"></i>
+                </div>
+                <div class="col-md-10">
+                    <h4>{{ student.user.get_full_name|default:student.user.username }}</h4>
+                    <p class="text-muted">{{ student.department }} Student</p>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <h5 class="border-bottom pb-2">Academic Information</h5>
+                    <p><strong>Department:</strong> {{ student.department }}</p>
+                    <p><strong>Skills:</strong> {{ student.skills|default:"Not specified" }}</p>
+                </div>
+                <div class="col-md-6">
+                    <h5 class="border-bottom pb-2">Contact Information</h5>
+                    <p><strong>Email:</strong> {{ student.user.email }}</p>
+                    <p><strong>Phone:</strong> {{ student.phone }}</p>
+                </div>
+            </div>
+
+            <div class="mt-4">
+                <h5 class="border-bottom pb-2">Applications</h5>
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Job Title</th>
+                                <th>Company</th>
+                                <th>Status</th>
+                                <th>Applied Date</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for app in student.applications.all %}
+                            <tr>
+                                <td>{{ app.job.title }}</td>
+                                <td>{{ app.job.company.name }}</td>
+                                <td>{{ app.status }}</td>
+                                <td>{{ app.applied_at|date:"M d, Y" }}</td>
+                            </tr>
+                            {% empty %}
+                            <tr>
+                                <td colspan="4" class="text-center">No applications yet.</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
